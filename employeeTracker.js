@@ -189,24 +189,25 @@ const addRoles = async () => {
 
 // view departments, roles, employees
 const viewEmployees = () => {
-    let values = [];
+    let values = []; 
     let query =
         'SELECT * FROM role ';
       query +=
         'INNER JOIN employee ON (role.id = employee.role_id) ';
       query +=
-        'INNER JOIN department ON (role.department_id = department.id)';
-      query +=
-        'ORDER BY employee.first_name';
+        'INNER JOIN department ON (role.department_id = department.id) ';
+       query +=
+         'ORDER BY employee.first_name';
     connection.query(query, (err,res) => {
-        res.forEach(({first_name,last_name,title,salary,item_name}) => {
+        res.forEach(({id,first_name,last_name,title,salary,item_name}) => {
             values.push(
                 {
+                    ID: id,
                     First_Name: first_name,
                     Last_Name: last_name,
                     Title: title,
                     Department: item_name,
-                    Salary: salary
+                    Salary: salary,
                 }
             );
         });
@@ -226,7 +227,6 @@ const viewDepartments = () => {
       query +=
         'ORDER BY department.item_name';
     connection.query(query, (err,res) => {
-        console.log(res);
         res.forEach(({first_name,last_name,title,salary,item_name}) => {
             values.push(
                 {
@@ -254,7 +254,6 @@ const viewRoles = () => {
       query +=
         'ORDER BY role.title';
     connection.query(query, (err,res) => {
-        console.log(res);
         res.forEach(({first_name,last_name,title,salary,item_name}) => {
             values.push(
                 {
